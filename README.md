@@ -1,4 +1,4 @@
 # blog
 
 ### 사용 기술
-Node.js, Koa
+Node.js, Koa, MongoDB
