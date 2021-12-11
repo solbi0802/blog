@@ -1,4 +1,4 @@
-import Post from '../models/post';
+import Post from '../../models/post';
 import mongoose from 'mongoose';
 import Joi from '@hapi/joi';
 
