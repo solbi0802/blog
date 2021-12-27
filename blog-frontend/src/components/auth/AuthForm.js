@@ -1,21 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
 
 /**
- * 에러 보여주기
- */
-const ErrorMessage = styled.div`
-  color: red;
-  text-align: center;
-  font-size: 0.875rem;
-  margin-top: 1rem;
-`;
-
-/**
- * 회원가입 또는 로그인 폼을 보여줌
+ * 회원가입 또는 로그인 폼을 보여줍니다.
  */
 
 const AuthFormBlock = styled.div`
@@ -27,7 +17,7 @@ const AuthFormBlock = styled.div`
 `;
 
 /**
- * input 스타일링
+ * 스타일링된 input
  */
 const StyledInput = styled.input`
   font-size: 1rem;
@@ -38,7 +28,7 @@ const StyledInput = styled.input`
   width: 100%;
   &:focus {
     color: $oc-teal-7;
-    border-bootm: 1px solid ${palette.gray[7]};
+    border-bottom: 1px solid ${palette.gray[7]};
   }
   & + & {
     margin-top: 1rem;
@@ -46,17 +36,17 @@ const StyledInput = styled.input`
 `;
 
 /**
- * 폼 하단에 로그인 또는 회원가입 링크
+ * 폼 하단에 로그인 혹은 회원가입 링크를 보여줌
  */
 const Footer = styled.div`
   margin-top: 2rem;
   text-align: right;
   a {
-      color: : ${palette.gray[6]};
-      text-decoration: underline;
-      &:hover {
-          color: ${palette.gray[9]};
-      }
+    color: ${palette.gray[6]};
+    text-decoration: underline;
+    &:hover {
+      color: ${palette.gray[9]};
+    }
   }
 `;
 
@@ -68,6 +58,16 @@ const textMap = {
   login: '로그인',
   register: '회원가입',
 };
+
+/**
+ * 에러를 보여줍니다
+ */
+const ErrorMessage = styled.div`
+  color: red;
+  text-align: center;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+`;
 
 const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
   const text = textMap[type];
@@ -101,7 +101,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
           />
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}
-        <ButtonWithMarginTop cyan fullWidth>
+        <ButtonWithMarginTop cyan fullWidth style={{ marginTop: '1rem' }}>
           {text}
         </ButtonWithMarginTop>
       </form>

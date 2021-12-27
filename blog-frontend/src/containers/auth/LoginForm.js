@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { changeField, initializeForm, login } from '../../modules/auth';
 import AuthForm from '../../components/auth/AuthForm';
-import { withRouter } from 'react-router-dom';
-import { check } from '../../lib/api/auth';
+import { check } from '../../modules/user';
 
 const LoginForm = ({ history }) => {
   const [error, setError] = useState(null);
@@ -14,9 +14,8 @@ const LoginForm = ({ history }) => {
     authError: auth.authError,
     user: user.user,
   }));
-
-  // input 변경 이벤트 핸들러
-  const onChange = (e) => {
+  // 인풋 변경 이벤트 핸들러
+  const onChange = e => {
     const { value, name } = e.target;
     dispatch(
       changeField({
@@ -27,20 +26,22 @@ const LoginForm = ({ history }) => {
     );
   };
 
-  // form 등록 이벤트 핸들러
-  const onSubmit = (e) => {
+  // 폼 등록 이벤트 핸들러
+  const onSubmit = e => {
     e.preventDefault();
     const { username, password } = form;
     dispatch(login({ username, password }));
   };
 
+  // 컴포넌트가 처음 렌더링 될 때 form 을 초기화함
   useEffect(() => {
     dispatch(initializeForm('login'));
   }, [dispatch]);
 
   useEffect(() => {
     if (authError) {
-      console.log('오류 발생', authError);
+      console.log('오류 발생');
+      console.log(authError);
       setError('로그인 실패');
       return;
     }
@@ -49,16 +50,18 @@ const LoginForm = ({ history }) => {
       dispatch(check());
     }
   }, [auth, authError, dispatch]);
+
   useEffect(() => {
     if (user) {
       history.push('/');
-    }
-    try {
-      localStorage.setItem('user', JSON.stringify(user));
-    } catch (e) {
-      console.log('localStorage is not working');
+      try {
+        localStorage.setItem('user', JSON.stringify(user));
+      } catch (e) {
+        console.log('localStorage is not working');
+      }
     }
   }, [history, user]);
+
   return (
     <AuthForm
       type="login"

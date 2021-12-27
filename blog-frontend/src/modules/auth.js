@@ -11,30 +11,29 @@ const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] =
   createRequestActionTypes('auth/REGISTER');
+
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] =
   createRequestActionTypes('auth/LOGIN');
 
 export const changeField = createAction(
   CHANGE_FIELD,
   ({ form, key, value }) => ({
-    form, // login, register
-    key, // username,password, passwordConfirm
-    value, //실제 바꾸려는 값
+    form, // register , login
+    key, // username, password, passwordConfirm
+    value, // 실제 바꾸려는 값
   }),
 );
-
-export const initializeForm = createAction(INITIALIZE_FORM, (form) => form);
+export const initializeForm = createAction(INITIALIZE_FORM, (form) => form); // register / login
 export const register = createAction(REGISTER, ({ username, password }) => ({
   username,
   password,
 }));
-
 export const login = createAction(LOGIN, ({ username, password }) => ({
   username,
   password,
 }));
 
-// 사가 생성
+// saga 생성
 const registerSaga = createRequestSaga(REGISTER, authAPI.register);
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
 export function* authSaga() {
@@ -67,21 +66,24 @@ const auth = handleActions(
       [form]: initialState[form],
       authError: null,
     }),
+    // 회원가입 성공
     [REGISTER_SUCCESS]: (state, { payload: auth }) => ({
       ...state,
       authError: null,
       auth,
     }),
+    // 회원가입 실패
     [REGISTER_FAILURE]: (state, { payload: error }) => ({
       ...state,
       authError: error,
-      auth,
     }),
+    // 로그인 성공
     [LOGIN_SUCCESS]: (state, { payload: auth }) => ({
       ...state,
       authError: null,
       auth,
     }),
+    // 로그인 실패
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
       ...state,
       authError: error,

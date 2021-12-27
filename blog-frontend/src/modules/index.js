@@ -7,7 +7,7 @@ import user, { userSaga } from './user';
 const rootReducer = combineReducers({
   auth,
   loading,
-  user,
+  user
 });
 
 export function* rootSaga() {

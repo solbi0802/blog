@@ -1,7 +1,7 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Header from '../../components/common/Header';
-import { logout } from '../../lib/api/auth';
+import { logout } from '../../modules/user';
 
 const HeaderContainer = () => {
   const { user } = useSelector(({ user }) => ({ user: user.user }));
