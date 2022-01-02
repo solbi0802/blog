@@ -70,7 +70,7 @@ const PostViewer = ({ post, error, loading }) => {
           <span>{new Date(publishedDate).toLocaleDateString()}</span>
         </SubInfo>
         <Tags>
-          {tags.mpa((tag) => (
+          {tags.map((tag) => (
             <div className="tag">#{tag}</div>
           ))}
         </Tags>
